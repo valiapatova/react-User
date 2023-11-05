@@ -1,8 +1,19 @@
+import {useEffect,useState} from 'react';
+
+import * as userService from '../services/userService';
+
 import UserListItem from "./UserListItem.jsx";
 
+
 const UserListTable = () => {
+
+    const [users, setUser] = useState([]);
+    
+
+
+
     return (
-        // {/* <!-- Table component --> */}      =    Table+Button AddUser
+        // {/* <!-- Table+Button AddUser  --> */}         
         <div className="table-wrapper">
 
             {/* <!-- Overlap components  --> */}

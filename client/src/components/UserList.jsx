@@ -1,3 +1,4 @@
+
 import UserListTable from "./UserListTable.jsx";
 import Search from './Search.jsx';
 
@@ -8,17 +9,22 @@ const UserList = () => {
         <section className="card users-container">
 
             {/* <!-- Search bar component --> */}
+
             <Search/>
  
-            {/* Table+Button AddUser*/}  
+            {/* Table+Button AddUser*/} 
+
              <UserListTable/>
          
+
+
 
             {/* <!-- Pagination component  --> */}
             <div className="pagination position">
                 <div className="limits">
                     <span>Items per page:</span>
-                    <select name="limit" className="limit" value="5">
+                    {/* <select name="limit" className="limit" value="5"> */}
+                    <select name="limit" className="limit" >
                         <option value="5">5</option>
                         <option value="5">10</option>
                         <option value="5">15</option>
@@ -65,11 +71,11 @@ const UserList = () => {
                 </div>
             </div>
 
-        </section>
-
-         
+        </section>         
 
     );
+
+
 
     {/*  <!-- User details component  --> */ }
     {/*  <!-- 
