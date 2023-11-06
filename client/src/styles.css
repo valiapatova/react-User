@@ -322,7 +322,7 @@ ul {
   }
 }
 
-/* Loading pinner  */
+/* Loading spinner  */
 .spinner {
   position: absolute;
   top: calc(50% - 32px);

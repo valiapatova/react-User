@@ -1,18 +1,21 @@
-const baseUrl = 'http//localhost:3030/jsonstore/users';
+const baseUrl = 'http://localhost:3030/jsonstore/users';
 
 export const getAll = async () => {
 
-    try {
+    // try{
         const response = await fetch(baseUrl);
         const result = await response.json();
 
         const data = Object.values(result);
+        console.log(data);
 
         return data;
 
-    } catch (error) {
-        console.log(error);
-        //return [];
-    };
+    // }catch(err){
+    //     err=>console.log(err);
+    //     return data=[];
+
+    // }
+    
 
 };
