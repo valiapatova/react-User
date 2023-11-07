@@ -9,7 +9,7 @@ export const getAll = async () => {
         const data = Object.values(result);
         console.log(data);
 
-        return data;
+        return data; // array from object values
 
     // }catch(err){
     //     err=>console.log(err);

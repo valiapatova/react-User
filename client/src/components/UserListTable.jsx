@@ -4,27 +4,36 @@ import * as userService from '../services/userService';
 
 import UserListItem from "./UserListItem.jsx";
 import Spinner from './Spinner.jsx';
-
+import CreateUserModal from './CreateUserModal.jsx';
 
 const UserListTable = () => {
 
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
     const [showInfo, setShowInfo] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
 
     const [selectedUser, setSelectedUser] = useState(null);
 
 
-
     useEffect(() => {
+
         setIsLoading(true);
 
         userService.getAll()
-            .then(result => setUsers(result))
+            .then(result => setUsers(result))     // then(setUsers)
             .catch(err => console.log(err))
             .finally(() => setIsLoading(false));
     }, []);
+
+
+    const createUserClickHandler = ()=>{
+
+        console.log( 'Click on button Add User - ');
+    }
+
+
 
     const userInfoClickHandler = async (userId) => {
         setSelectedUser(userId);
@@ -35,8 +44,6 @@ const UserListTable = () => {
         setSelectedUser(userId);
         setShowDelete(true);
     };
-
-
 
     return (
 
@@ -117,10 +124,9 @@ const UserListTable = () => {
                     ))}
                 </tbody>
             </table>
-
-
-           
-            <button className="btn-add btn">Add new user</button>
+          
+            <button className="btn-add btn" onClick={createUserClickHandler}>Add new user</button>
+            <CreateUserModal/>
 
         </div>
     );
