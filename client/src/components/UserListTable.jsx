@@ -35,7 +35,7 @@ const UserListTable = () => {
         console.log('Click on button Add User - ');
     }
 
-    const hideCreateUserModal = () =>{
+    const hideCreateUserModal = () => {
         setShowCreate(false);
     }
 
@@ -50,6 +50,25 @@ const UserListTable = () => {
         setShowDelete(true);
     };
 
+    const userCreateHandler = (e) => {
+        e.preventDefault();  // stop page refreshing
+        setShowCreate(false);
+        console.log('user creating from Form');
+
+        //const formData=new FormData(e.currentTarget);
+        //console.log (formData.get('firstName'));   // from form name= "firstName"
+        //const{firstName}=Object.fromEntries(formData); 
+        //dekonstruirame object взимаме стойн в firstName на name= "firstName" ot form
+        // console.log(firstName);
+
+        const data = Object.fromEntries(new FormData(e.currentTarget));  //plain object ot name:value from form include is that not entred
+        //извличаме данните от формата в plain object
+        console.log(data);
+        
+
+
+    }
+
     return (
 
 
@@ -57,7 +76,7 @@ const UserListTable = () => {
 
             {isLoading && <Spinner />}
 
-            {showCreate && <CreateUserModal hideModal={hideCreateUserModal}/>} 
+            {showCreate && <CreateUserModal onClose={hideCreateUserModal} onCreate={userCreateHandler} />}
 
 
             <table className="table">
