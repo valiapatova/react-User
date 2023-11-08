@@ -13,6 +13,7 @@ const UserListTable = () => {
 
     const [showInfo, setShowInfo] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
+    const [showCreate, setShowCreate] = useState(false);  // modal
 
     const [selectedUser, setSelectedUser] = useState(null);
 
@@ -28,11 +29,15 @@ const UserListTable = () => {
     }, []);
 
 
-    const createUserClickHandler = ()=>{
+    const createUserClickHandler = () => {
+        setShowCreate(true);
 
-        console.log( 'Click on button Add User - ');
+        console.log('Click on button Add User - ');
     }
 
+    const hideCreateUserModal = () =>{
+        setShowCreate(false);
+    }
 
 
     const userInfoClickHandler = async (userId) => {
@@ -51,6 +56,9 @@ const UserListTable = () => {
         <div className="table-wrapper">
 
             {isLoading && <Spinner />}
+
+            {showCreate && <CreateUserModal hideModal={hideCreateUserModal}/>} 
+
 
             <table className="table">
                 <thead>
@@ -124,9 +132,10 @@ const UserListTable = () => {
                     ))}
                 </tbody>
             </table>
-          
+
             <button className="btn-add btn" onClick={createUserClickHandler}>Add new user</button>
-            <CreateUserModal/>
+
+
 
         </div>
     );
