@@ -12,8 +12,9 @@ const UserListTable = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [showInfo, setShowInfo] = useState(false);
+    const [showCreate, setShowCreate] = useState(false);  // for modal
     const [showDelete, setShowDelete] = useState(false);
-    const [showCreate, setShowCreate] = useState(false);  // modal
+
 
     const [selectedUser, setSelectedUser] = useState(null);
 
@@ -50,22 +51,38 @@ const UserListTable = () => {
         setShowDelete(true);
     };
 
-    const userCreateHandler = (e) => {
-        e.preventDefault();  // stop page refreshing
-        setShowCreate(false);
-        console.log('user creating from Form');
+    const userCreateHandler = async (e) => {
+        // закачен за формата в модала за onSubmit react eventa, да не се скрива модала
+        // Stop page refreshing
+        e.preventDefault();
 
+
+        console.log('user creating from Form');
         //const formData=new FormData(e.currentTarget);
         //console.log (formData.get('firstName'));   // from form name= "firstName"
         //const{firstName}=Object.fromEntries(formData); 
-        //dekonstruirame object взимаме стойн в firstName на name= "firstName" ot form
-        // console.log(firstName);
+        //деконструираме object взимаме стойн в firstName на name= "firstName" ot form
+        //console.log(firstName);
+        console.log(e);
+        console.log(e.currentTarget);
 
+        // Get data from form data
+        //извличаме данните от формата в plan object
         const data = Object.fromEntries(new FormData(e.currentTarget));  //plain object ot name:value from form include is that not entred
-        //извличаме данните от формата в plain object
-        console.log(data);
-        
 
+        console.log(data);
+
+        // Create new user at the server
+        const newUser = await userService.create(data);
+
+
+
+        // Add newly created user to the local state
+        setUsers(state => [...state, newUser]);
+
+
+        // Close the modal
+        setShowCreate(false);
 
     }
 
@@ -76,7 +93,14 @@ const UserListTable = () => {
 
             {isLoading && <Spinner />}
 
-            {showCreate && <CreateUserModal onClose={hideCreateUserModal} onCreate={userCreateHandler} />}
+            {showCreate && <CreateUserModal
+                onClose={hideCreateUserModal}
+                onCreate={userCreateHandler}
+            />}
+
+            {showInfo && <UserInfoModal
+                onClose={() => setShowInfo(false)}
+            />}
 
 
             <table className="table">
