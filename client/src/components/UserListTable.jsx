@@ -5,7 +5,8 @@ import * as userService from '../services/userService';
 import UserListItem from "./UserListItem.jsx";
 import Spinner from './Spinner.jsx';
 import UserCreateModal from './UserCreateModal.jsx';
-import UserInfoModal from './UserInfoModal.jsx'
+import UserInfoModal from './UserInfoModal.jsx';
+import UserDeleteModal from './UserDeleteModal.jsx';
 
 const UserListTable = () => {
     const [users, setUsers] = useState([]);
@@ -13,7 +14,7 @@ const UserListTable = () => {
     const [isLoading, setIsLoading] = useState(false);  // for Spiner
 
     const [showInfo, setShowInfo] = useState(false);    // for modal
-    const [showCreate, setShowCreate] = useState(false);  
+    const [showCreate, setShowCreate] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
 
 
@@ -31,7 +32,7 @@ const UserListTable = () => {
     }, []);
 
     const createUserClickHandler = () => {
-        setShowCreate(true);        
+        setShowCreate(true);
     };
 
     const userCreateHandler = async (e) => {
@@ -69,8 +70,6 @@ const UserListTable = () => {
 
     };
 
-
-
     const hideUserCreateModal = () => {
         setShowCreate(false);
     }
@@ -86,6 +85,18 @@ const UserListTable = () => {
     };
 
 
+    const deleteUserHandler = async () => {
+        // Remove user from server
+        await userService.remove(selectedUser);
+
+        // Remove user from state
+        setUsers(state => state.filter(user => user._id !== selectedUser));
+
+        // Close the delete modal
+        setShowDelete(false);
+    };
+
+
 
     return (
 
@@ -95,19 +106,25 @@ const UserListTable = () => {
             {isLoading && <Spinner />}
 
             {showCreate && (
-                <UserCreateModal 
+                <UserCreateModal
                     onClose={hideUserCreateModal}
                     onCreate={userCreateHandler}
                 />
             )}
 
-            {showInfo && 
+            {showInfo &&
                 <UserInfoModal
                     onClose={() => setShowInfo(false)}
                     userId={selectedUser}
-            />}
+                />}
 
 
+            {showDelete && (
+                <UserDeleteModal
+                    onClose={() => setShowDelete(false)}
+                    onDelete={deleteUserHandler}
+                />
+            )}
 
             <table className="table">
                 <thead>
@@ -183,7 +200,6 @@ const UserListTable = () => {
             </table>
 
             <button className="btn-add btn" onClick={createUserClickHandler}>Add new user</button>
-
 
 
         </div>

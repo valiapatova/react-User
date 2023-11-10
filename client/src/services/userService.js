@@ -64,7 +64,6 @@ export const remove = async (userId) => {
         method: 'DELETE'
     });
 
-
     const result = await response.json();
 
     return result;
