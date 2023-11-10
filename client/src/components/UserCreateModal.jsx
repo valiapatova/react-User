@@ -1,4 +1,4 @@
-const CreateUserModal = ({
+const UserCreateModal = ({
   onClose,
   onCreate,
 
@@ -114,4 +114,4 @@ const CreateUserModal = ({
 
 
 };
-export default CreateUserModal;
+export default UserCreateModal;
