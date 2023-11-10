@@ -5,9 +5,9 @@ import * as userService from '../services/userService';
 import UserListItem from "./UserListItem.jsx";
 import Spinner from './Spinner.jsx';
 import CreateUserModal from './CreateUserModal.jsx';
+import UserInfoModal from './UserInfoModal.jsx'
 
 const UserListTable = () => {
-
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -93,13 +93,17 @@ const UserListTable = () => {
 
             {isLoading && <Spinner />}
 
-            {showCreate && <CreateUserModal
-                onClose={hideCreateUserModal}
-                onCreate={userCreateHandler}
-            />}
+            {showCreate && (
+                <CreateUserModal 
+                    onClose={hideCreateUserModal}
+                    onCreate={userCreateHandler}
+                />
+            )}
 
-            {showInfo && <UserInfoModal
-                onClose={() => setShowInfo(false)}
+            {showInfo && 
+                <UserInfoModal
+                    onClose={() => setShowInfo(false)}
+                    userId={selectedUser}
             />}
 
 
