@@ -9,10 +9,11 @@ import UserInfoModal from './UserInfoModal.jsx'
 
 const UserListTable = () => {
     const [users, setUsers] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
 
-    const [showInfo, setShowInfo] = useState(false);
-    const [showCreate, setShowCreate] = useState(false);  // for modal
+    const [isLoading, setIsLoading] = useState(false);  // for Spiner
+
+    const [showInfo, setShowInfo] = useState(false);    // for modal
+    const [showCreate, setShowCreate] = useState(false);  
     const [showDelete, setShowDelete] = useState(false);
 
 
@@ -29,26 +30,8 @@ const UserListTable = () => {
             .finally(() => setIsLoading(false));
     }, []);
 
-
     const createUserClickHandler = () => {
-        setShowCreate(true);
-
-        console.log('Click on button Add User - ');
-    }
-
-    const hideCreateUserModal = () => {
-        setShowCreate(false);
-    }
-
-
-    const userInfoClickHandler = async (userId) => {
-        setSelectedUser(userId);
-        setShowInfo(true);
-    };
-
-    const deleteUserClickHandler = (userId) => {
-        setSelectedUser(userId);
-        setShowDelete(true);
+        setShowCreate(true);        
     };
 
     const userCreateHandler = async (e) => {
@@ -84,7 +67,25 @@ const UserListTable = () => {
         // Close the modal
         setShowCreate(false);
 
+    };
+
+
+
+    const hideUserCreateModal = () => {
+        setShowCreate(false);
     }
+
+    const userInfoClickHandler = async (userId) => {
+        setSelectedUser(userId);
+        setShowInfo(true);
+    };
+
+    const userDeleteClickHandler = (userId) => {
+        setSelectedUser(userId);
+        setShowDelete(true);
+    };
+
+
 
     return (
 
@@ -95,7 +96,7 @@ const UserListTable = () => {
 
             {showCreate && (
                 <UserCreateModal 
-                    onClose={hideCreateUserModal}
+                    onClose={hideUserCreateModal}
                     onCreate={userCreateHandler}
                 />
             )}
@@ -175,7 +176,7 @@ const UserListTable = () => {
                             lastName={user.lastName}
                             phoneNumber={user.phoneNumber}
                             onInfoClick={userInfoClickHandler}
-                            onDeleteClick={deleteUserClickHandler}
+                            onDeleteClick={userDeleteClickHandler}
                         />
                     ))}
                 </tbody>
